@@ -1,0 +1,52 @@
+// Rory Mehalic
+public class GroceryItem {
+    private String item_name;
+    private double item_value;
+    // All Constructors
+    public GroceryItem() {
+        item_name = "none";
+        item_value = 0.0;
+    }
+
+    public GroceryItem(String n, double v){
+        if (n != null && n.length() != 0) {
+            item_name = n;
+        }
+        else {
+            item_name = "none";
+        }
+        if (v >= 0.0) {
+            item_value = v;
+        }
+        else {
+            item_value = 0.0;
+        }
+    }
+// Acessors and Mutators
+    public String getName() {
+        return item_name;
+    }
+    public double getValue() {
+        return item_value;
+    }
+    public void setName(String n) {
+        if (n != null && n.length() != 0) {
+            item_name = n;
+        }
+    }
+    public void setValue(double v) {
+        if (v >= 0.0) {
+            item_value = v;
+        }
+    }
+    // Methods
+    public String toString() {
+        return "Grocery Item Name: " + item_name + " Value: " + item_value;
+    }
+    public boolean equals(GroceryItem another) {
+        if (another == null) {
+            return false;
+        }
+        return item_name.equals(another.item_name) && item_value == another.item_value;
+    }
+}
