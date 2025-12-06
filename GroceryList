@@ -1,0 +1,107 @@
+// Rory Mehalic
+public class GroceryList {
+    private class ListNode {
+        GroceryItem data;
+        ListNode link;
+
+        public ListNode(){
+        data = null;
+        link = null;
+        }
+    public ListNode(GroceryItem d, ListNode l) {
+        data = d;
+        link = l;
+        }
+    }
+    private ListNode head;
+    private ListNode current;
+    private ListNode previous;
+// All Constructors
+    public GroceryList() {
+        head = null;
+        current = head;
+        previous = head;
+    }
+    public ListNode(){
+        data = null;
+        link = null;
+    }
+    public ListNode(GroceryItem d, ListNode l) {
+        data = d;
+        link = l;
+    }
+    // All Methods
+    public void gotoNext() {
+        if (current == null || current.link == null) {
+            return;
+        }
+        previous = current;
+        current = current.link;
+    }
+    public GroceryItem getCurrent() {
+        if (current == null) {
+            return null;
+        }
+        return current.data;
+    }
+    public void setCurrent(GroceryItem i) {
+        if (current == null || i == null) {
+            return;
+        }
+        current.data = i;
+    }
+    public void addItem(GroceryItem i) {
+        if (i == null) {
+            return;
+        }
+        ListNode newNode = new ListNode(i, null);
+        if (head == null) {
+            head = newNode;
+            current = head;
+        }
+        else {
+            ListNode temp = head;
+            while (temp.link != null) {
+                temp = temp.link;
+            }
+            temp.link = newNode;
+        }
+    }
+    public void addItemAfterCurrent(GroceryItem i) {
+        if (i == null || current == null) {
+            return;
+        }
+        ListNode newNode = new ListNode(i, current.link);
+        current.link = newNode;
+    }
+    public void removeCurrent () {
+        if (current == null) {
+            return;
+        }
+        if (current == head) {
+            head = head.link;
+            current = head;
+            previous = null;
+        }
+        else {
+            previous.link = current.link;
+            current = current.link;
+        }
+    }
+    public void showList() {
+        ListNode temp = head;
+        while (temp != null) {
+            System.out.println(temp.data.toString());
+            temp = temp.link;
+        }
+    }
+    public double totalCost() {
+        double total = 0.0;
+        ListNode temp = head;
+        while (temp != null) {
+            total += temp.data.getValue();
+            temp = temp.link;
+        }
+        return total;
+    }
+}
