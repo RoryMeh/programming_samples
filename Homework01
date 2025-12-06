@@ -1,0 +1,75 @@
+// Rory Mehalic
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+public class Homework01 {
+    public static void main(String[] args) {
+        String[] prize_names = new String[53];
+        int[] prize_costs = new int[53];
+        // Initialize empty arrays and implement to arrays from file
+        try {
+            File file = new File("prizeList.txt");
+            Scanner fileScanner = new Scanner(file);
+            int i = 0;
+            while (fileScanner.hasNextLine() && i < 53) {
+                String line = fileScanner.nextLine();
+                String[] parts = line.split(",");
+                prize_names[i] = parts[0];
+                prize_costs[i] = Integer.parseInt(parts[1].trim());
+                i++;
+            }
+            fileScanner.close();
+            // Check for errors
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: prizes.txt not found.");
+            return;
+        } catch (Exception e) {
+            System.out.println("Error reading the file.");
+            return;
+        }
+        // Creation of the guessing game
+        boolean play = true;
+        Scanner scanner = new Scanner(System.in);
+
+        while (play) {
+            int total = 0;
+            int[] selectedIndices = new int[5];
+
+            System.out.println("\nYour prizes are:");
+            for (int i = 0; i < 5; i++) {
+                int randPrize = (int) (Math.random() * 53); // 0 to 52
+                selectedIndices[i] = randPrize;
+                System.out.println(prize_names[randPrize]);
+                total += prize_costs[randPrize];
+            }
+
+            System.out.println("\nTo win, you have to guess the total cost of the prizes combined without going over, and within $1300 of the value.");
+            System.out.print("Enter your guess: ");
+
+            int user_guess;
+            try {
+                user_guess = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Try again.");
+                continue;
+            }
+
+            if (user_guess <= total && user_guess + 1300 >= total) {
+                System.out.println("You win!");
+            } else if (user_guess < total) {
+                System.out.println("You lose, your guess was under by more than $1300.");
+            } else {
+                System.out.println("You lose, your guess was over.");
+            }
+            // Continue again or stop the game
+            System.out.print("Would you like to play again? (y/n): ");
+            String again = scanner.nextLine().trim().toLowerCase();
+            if (!again.equals("y")) {
+                play = false;
+            }
+        }
+
+        scanner.close();
+        System.out.println("Thanks for playing!");
+    }
+}
