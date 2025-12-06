@@ -1,0 +1,54 @@
+// Rory Mehalic
+import java.util.Scanner;
+public class Homework00 {
+    static Scanner choice = new Scanner(System.in);
+    static double[] vector1;
+    static double[] vector2;
+    static double[] result;
+    
+    public static void main(String[] args) {
+        System.out.println("To Add Two Vectors, Enter 1. \nTo Subtract Two Vectors, Enter 2. \nTo Exit, Enter 3.");
+        int option = choice.nextInt();
+        if (option == 1) {
+            Initialization();
+            Addition();
+        }
+        else if (option == 2) {
+            Initialization();
+            Subtraction();
+        }
+        else {
+            System.exit(0);
+        }
+    }    
+    public static void Initialization() {
+        System.out.println("Please enter the size of the vectors.");
+        int option = choice.nextInt();
+        vector1 = new double[option];
+        vector2 = new double[option];
+        result = new double[option];
+        double answer = 0.0;
+        System.out.println("Enter your first vector values.");
+        for (int i = 0; i < vector1.length; i++) {
+            answer = choice.nextDouble();
+            vector1[i] = answer;
+        }
+        System.out.println("Enter your second vector values.");
+        for (int i = 0; i < vector2.length; i++) {
+            answer = choice.nextDouble();
+            vector2[i] = answer;
+        }
+    }
+    public static void Addition() {
+        for (int j = 0; j < result.length; j++) {
+            result[j] = vector1[j] + vector2[j];
+            System.out.println(result[j]);
+        }
+    }
+    public static void Subtraction() {
+        for (int j = 0; j < result.length; j++) {
+            result[j] = vector1[j] - vector2[j];
+            System.out.println(result[j]);
+        }
+    }
+}
