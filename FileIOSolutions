@@ -1,0 +1,61 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+ 
+class FileIOSolutions {
+  static void pastTense() {
+	   try {
+	     Scanner fileScanner = new Scanner(new File("ItIs.txt"));
+	     fileScanner.close();
+	   } catch (FileNotFoundException e) {
+	     System.out.println("File not found:" + e.getMessage());
+	   }
+	}
+  static void totalTubeVolume() {
+	   int radius[] = new int[100];
+	   int height[] = new int[100];
+	   double combined_volume = 0;
+	   try {
+	     File file = new File("Tubes.txt");
+	     Scanner fileScanner2 = new Scanner(file);
+	     int i = 0;
+	     while(fileScanner2.hasNextLine() && i<100) {
+	       String line = fileScanner2.nextLine();
+	       String given[] = line.split(",");
+	       radius[i] = Integer.parseInt(given[0].trim());
+	       height[i] = Integer.parseInt(given[1].trim());
+	       i++;
+	     }
+	     fileScanner2.close();
+	     for(int j = 0;j<i;j++) //XXX j VALUE
+	       combined_volume += (radius[j] * radius[j]) * 3.14 * height[j];
+	     System.out.println("Combined Volume:" + combined_volume);
+	   } catch (FileNotFoundException e) {
+	     System.out.println("File not found:" + e.getMessage());
+	   }
+	}
+  public static void main(String args[]) {
+	   //TODO what of legal stuff?
+	   FileIOSolutions obj = new FileIOSolutions();
+	   Scanner user_input = new Scanner(System.in);
+	   System.out.println("Which Test would you like the solution to?");
+	   System.out.println("Enter 1 For Test 1. Enter 2 For Test 2.");
+	   System.out.println("Enter 9 To Exit.");
+	   int input_num = 0;
+	   if (user_input.hasNextInt()) {
+	     input_num = user_input.nextInt();
+	   } else {
+	     System.out.println("Invalid input, exiting.");
+	     user_input.close();
+	     return;
+	   }
+	   if (input_num == 1) {
+	     obj.pastTense();
+	   } else if (input_num == 2) {
+	     obj.totalTubeVolume();
+	   } else {
+	     System.out.println("Finished Compiling");
+	   }
+	   user_input.close();
+	}
+}
